@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { SwalError } from "../utils/SwalFire";
 import { Account } from "../types";
+import AccountCard from "../components/AccountCard";
 
 const Home = () => {
     const nav = useNavigate();
@@ -31,8 +32,12 @@ const Home = () => {
     return (
         <div className="container">
             <div className="row justify-content-center">
-                <h1>Home</h1>
-                {JSON.stringify(accounts)}
+                <h1 className="text-primary p-1 text-center rounded-3 my-3">
+                    Accounts (click on a username or password to copy)
+                </h1>
+                {accounts.map((a, i) => (
+                    <AccountCard key={`account-card-${i}`} {...a} />
+                ))}
             </div>
         </div>
     );
