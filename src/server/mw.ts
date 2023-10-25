@@ -19,10 +19,20 @@ const register: RequestHandler = async (req, res) => {
     if (!email) return res.status(400).json({ message: "Missing email" });
     if (!password) return res.status(400).json({ message: "Missing password" });
 
-    const newUser = { email, password };
-    newUser.password = await bcrypt.hash(password, 12);
-
     try {
+        // Block to validate if user account previously existed and if so, login
+        const [existingUser] = await db.users.find(email);
+        if (existingUser) {
+            const matches = await bcrypt.compare(password, existingUser.password);
+            if (!matches) return res.status(401).json({ message: "Invalid credentials" });
+
+            const token = signToken({ email });
+            return res.status(200).json({ message: "Logged in, thanks.", token });
+        }
+        // End of login-if-previously-existed block
+
+        const newUser = { email, password };
+        newUser.password = await bcrypt.hash(password, 12);
         await db.users.register(newUser);
 
         const payload = { email };

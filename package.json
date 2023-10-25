@@ -11,7 +11,8 @@
 		"build:client": "node esbuild-config/client.prod.mjs",
 		"build:server": "node esbuild-config/server.prod.mjs",
 		"build": "npm-run-all --sequential build:*",
-		"start": "node dist/server.js"
+		"start": "node dist/server.js",
+		"deploy": "git push heroku main"
 	},
 	"keywords": [
 		"typescript",
@@ -24,6 +25,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"@types/mysql": "^2.15.23",
+		"@types/react-router-dom": "^5.3.3",
 		"bcrypt": "^5.1.1",
 		"bootstrap": "^5.3.1",
 		"cors": "^2.8.5",
@@ -32,7 +34,9 @@
 		"jsonwebtoken": "^9.0.2",
 		"mysql": "^2.18.1",
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-dom": "^18.2.0",
+		"react-router-dom": "^6.17.0",
+		"sweetalert2": "^11.7.32"
 	},
 	"devDependencies": {
 		"@types/bcrypt": "^5.0.1",
