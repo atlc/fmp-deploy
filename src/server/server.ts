@@ -9,6 +9,8 @@ const app = express();
 app.use(express.json());
 app.use(routes);
 
+console.log("Hello World!");
+
 if (isDevelopment) {
     app.use(cors());
 }
@@ -17,7 +19,6 @@ if (isProduction) {
     app.use(express.static("public"));
 }
 
-// 404 fallback for client side routing
 if (isProduction) {
     app.get("*", (req, res) => {
         res.sendFile("index.html", { root: "public" });
